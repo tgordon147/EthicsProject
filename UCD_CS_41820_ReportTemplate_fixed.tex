@@ -1,0 +1,648 @@
+\documentclass[]
+{UCD_CS_41820_Report}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{xcolor}
+
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+\usepackage{color}
+\definecolor{lightgray}{rgb}{0.95, 0.95, 0.95}
+\definecolor{darkgray}{rgb}{0.4, 0.4, 0.4}
+%\definecolor{purple}{rgb}{0.65, 0.12, 0.82}
+\definecolor{editorGray}{rgb}{0.95, 0.95, 0.95}
+\definecolor{editorOcher}{rgb}{1, 0.5, 0} % #FF7F00 -> rgb(239, 169, 0)
+\definecolor{editorGreen}{rgb}{0, 0.5, 0} % #007C00 -> rgb(0, 124, 0)
+\definecolor{orange}{rgb}{1,0.45,0.13}		
+\definecolor{olive}{rgb}{0.17,0.59,0.20}
+\definecolor{brown}{rgb}{0.69,0.31,0.31}
+\definecolor{purple}{rgb}{0.38,0.18,0.81}
+\definecolor{lightblue}{rgb}{0.1,0.57,0.7}
+\definecolor{lightred}{rgb}{1,0.4,0.5}
+\usepackage{upquote}
+\usepackage{textcomp}
+\usepackage{float}
+\setcounter{secnumdepth}{3}
+
+
+
+% CSS
+\lstdefinelanguage{CSS}{
+  keywords={color,background-image:,margin,padding,font,weight,display,position,top,left,right,bottom,list,style,border,size,white,space,min,width, transition:, transform:, transition-property, transition-duration, transition-timing-function},	
+  sensitive=true,
+  morecomment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  morestring=[b]',
+  morestring=[b]",
+  alsoletter={:},
+  alsodigit={-}
+}
+
+% JavaScript
+\lstdefinelanguage{JavaScript}{
+  morekeywords={typeof, new, true, false, catch, function, return, null, switch, var, let, const, if, in, while, do, else, case, break, await, async},
+  morecomment=[s]{/*}{*/},
+  morecomment=[l]//,
+  morestring=[b]",
+  morestring=[b]',
+  morestring=[b]`,
+  literate={\$}{{$$$$}}1
+}
+
+
+
+
+\lstdefinelanguage{HTML5}{
+  language=html,
+  sensitive=true,	
+  alsoletter={<>=-},	
+  morecomment=[s]{<!-}{-->},
+  tag=[s],
+  otherkeywords={
+  % General
+  >,
+  % Standard tags
+	<!DOCTYPE,
+  </html, <html, <head, <title, </title, <style, </style, <link, </head, <meta, />,
+	% body
+	</body, <body,
+	% Divs
+	</div, <div, </div>, 
+	% Paragraphs
+	</p, <p, </p>,
+	% scripts
+	</script, <script,
+  % More tags...
+  <canvas, /canvas>, <svg, <rect, <animateTransform, </rect>, </svg>, <video, <source, <iframe, </iframe>, </video>, <image, </image>, <header, </header, <article, </article
+  },
+  ndkeywords={
+  % General
+  =,
+  % HTML attributes
+  charset=, src=, id=, width=, height=, style=, type=, rel=, href=,
+  % SVG attributes
+  fill=, attributeName=, begin=, dur=, from=, to=, poster=, controls=, x=, y=, repeatCount=, xlink:href=,
+  % properties
+  margin:, padding:, background-image:, border:, top:, left:, position:, width:, height:, margin-top:, margin-bottom:, font-size:, line-height:,
+	% CSS3 properties
+  transform:, -moz-transform:, -webkit-transform:,
+  animation:, -webkit-animation:,
+  transition:,  transition-duration:, transition-property:, transition-timing-function:,
+  }
+}
+
+\lstdefinestyle{htmlcssjs} {%
+  % General design
+%  backgroundcolor=\color{editorGray},
+  basicstyle={\footnotesize\ttfamily},   
+  frame=b,
+  % line-numbers
+  xleftmargin={0.75cm},
+  numbers=left,
+  stepnumber=1,
+  firstnumber=1,
+  numberfirstline=true,	
+  % Code design
+  identifierstyle=\color{black},
+  keywordstyle=\color{blue}\bfseries,
+  ndkeywordstyle=\color{editorGreen}\bfseries,
+  stringstyle=\color{editorOcher}\ttfamily,
+  commentstyle=\color{brown}\ttfamily,
+  % Code
+  language=HTML5,
+  alsolanguage=JavaScript,
+  alsodigit={.:;},	
+  tabsize=2,
+  showtabs=false,
+  showspaces=false,
+  showstringspaces=false,
+  extendedchars=true,
+  breaklines=true,
+  % German umlauts
+  literate=%
+  {Ö}{{\"O}}1
+  {Ä}{{\"A}}1
+  {Ü}{{\"U}}1
+  {ß}{{\ss}}1
+  {ü}{{\"u}}1
+  {ä}{{\"a}}1
+  {ö}{{\"o}}1
+}
+%
+\lstdefinestyle{py} {%
+language=python,
+literate=%
+*{0}{{{\color{lightred}0}}}1
+{1}{{{\color{lightred}1}}}1
+{2}{{{\color{lightred}2}}}1
+{3}{{{\color{lightred}3}}}1
+{4}{{{\color{lightred}4}}}1
+{5}{{{\color{lightred}5}}}1
+{6}{{{\color{lightred}6}}}1
+{7}{{{\color{lightred}7}}}1
+{8}{{{\color{lightred}8}}}1
+{9}{{{\color{lightred}9}}}1,
+basicstyle=\footnotesize\ttfamily, % Standardschrift
+numbers=left,               % Ort der Zeilennummern
+%numberstyle=\tiny,          % Stil der Zeilennummern
+%stepnumber=2,               % Abstand zwischen den Zeilennummern
+numbersep=5pt,              % Abstand der Nummern zum Text
+tabsize=4,                  % Groesse von Tabs
+extendedchars=true,         %
+breaklines=true,            % Zeilen werden Umgebrochen
+keywordstyle=\color{blue}\bfseries,
+frame=b,
+commentstyle=\color{brown}\itshape,
+stringstyle=\color{editorOcher}\ttfamily, % Farbe der String
+showspaces=false,           % Leerzeichen anzeigen ?
+showtabs=false,             % Tabs anzeigen ?
+xleftmargin=17pt,
+framexleftmargin=17pt,
+framexrightmargin=5pt,
+framexbottommargin=4pt,
+%backgroundcolor=\color{lightgray},
+showstringspaces=false,      % Leerzeichen in Strings anzeigen ?
+}%
+%
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+
+\lstset{style=htmlcssjs}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+}
+\lstset{
+    mathescape=true,
+    basicstyle = \ttfamily
+}
+
+
+%\usepackage[backend=biber,style=chicago-authordate]{biblatex}
+\usepackage[backend=biber,style=nature]{biblatex}
+\addbibresource{references.bib}
+
+
+%%% YOU DO NOT NEED TO EDIT ANYTHING ABOVE THIS LINE
+%%% START EDITING THE DOCUMENT BELOW
+%%%%%%%%%%%%%%%%%%%%%%
+%%% Input project details
+
+\def\firststudentname{Patrick Wolf}% Edit with your name
+\def\firststudentid{19721081}% Edit with your student id
+\def\secondstudentname{Thomas Gordon}% Edit with your name
+\def\secondstudentid{25263012}% Edit with your student id
+\def\projecttitle{} % Edit with your project title
+\def\supervisorname{Vivek Nallur}
+
+
+\begin{document}
+\maketitle
+
+%%%%%%%%%%%%%%%%%%%%%%
+%%% Table of Content
+
+\tableofcontents
+%\pdfbookmark[0]{Table of Contents}{toc}\newpage
+%\newpage
+
+
+%%%%%%
+\chapter{Introduction}
+\subsection{System Overview}
+
+X (formerly Twitter) is one of the popular social platforms in the world, generating an enormous volume of content, approximately 347,200 tweets per minute \cite{domo2022}. This data is characterised by its variety, volume, and the speed with which it is generated \cite{casado2015}, making it an interesting example of a big data platform where millions of individuals interact daily with published content \cite{gadek2018, wang2010}.
+
+The "For You" algorithmic timeline is a recommendation system that selects and ranks tweets for each user. The algorithm is partially open-sourced, providing strong transparency into how a major social platform recommends content and tweets. The source code is publicly available at \url{https://github.com/twitter/the-algorithm}.
+
+The For You feed is algorithmically curated with roughly 50\% of its content coming from accounts the user does not follow (out-of-network content), selected because the algorithm predicts the user will find it engaging and retain attention.
+
+\subsection{Twitter as a Predictive and Analytical System}
+
+The evolution of artificial intelligence and machine learning has drastically improved the analysis of massively generated social media data, supported by the continuous development of supercomputing power \cite{duan2019}. Twitter's recommendation algorithm is a strong example of this trend; it applies deep learning, social network analysis, and natural language processing to predict which content a given user is most likely to engage with.
+
+Research has shown that analysis of Twitter's unstructured data has shown hidden knowledge across a wide variety of domains \cite{canomarin2023}. Twitter data has been used as a predictive system in areas including sentiment analysis and popularity prediction \cite{asur2010, hong2011}, community detection through social network analysis and graph theory \cite{pei2014, gadek2017}, public health surveillance \cite{signorini2011, santillana2015}, financial forecasting \cite{bollen2011, shen2019}, and political orientation prediction \cite{colleoni2014, tumasjan2011}.
+
+What makes X's recommendation algorithm significant as an AI-enabled system is that it does not merely analyse tweets but it also decides what content is surfaced, amplified, or suppressed, making it a system whose ethical implications have a very strong impact on the information landscape.
+
+\subsection{Key Features of the Recommendation Pipeline}
+
+The recommendation pipeline consists of four major stages:
+
+\textbf{Candidate Sourcing} retrieves approximately 1,500 tweets from two primary sources. In-network candidates come from accounts the user follows, ranked by a logistic regression model called Real Graph, which predicts engagement likelihood between pairs of users. Out-of-network candidates are identified through two mechanisms: social graph traversal (finding tweets engaged with by people the user follows or by similar users) and SimClusters, a matrix factorisation algorithm that maps users and tweets into 145,000 virtual community embeddings. This community detection approach aligns with the more common research on identifying communities in Twitter using social network analysis techniques and graph theory \cite{gadek2017, cheng2014}.
+
+\textbf{Ranking} is performed by a 48-million-parameter neural network based on the MaskNet architecture, continuously trained on tweet interaction data. The model takes thousands of features as input and outputs ten probability labels for different engagement types (likes, retweets, replies). Tweets are scored and ordered by a weighted combination of the predicted engagement probabilities. This is similar to the trend identified by Cano-Marin et al. \cite{canomarin2023} where machine learning techniques and particularly supervised classification and deep learning are essential to extracting tweet predictions from Twitter's user content.
+
+\textbf{Heuristics and Filtering} applies rule-based post-processing to the ranked list. This includes filtering tweets from blocked or muted users, removing NSFW content, and balancing the ratio of in-network to out-of-network tweets.
+
+\textbf{Mixing} combines the filtered tweets with non-tweet content such as advertisements, follow recommendations, and trending topics to produce the final feed.
+
+\subsection{Symbolic vs. Sub-Symbolic Technologies}
+
+The system is predominantly \textbf{sub-symbolic}. The core ranking model is a deep neural network with feature representations from data rather than using programmed rules. Similarly, SimClusters uses unsupervised matrix factorisation to explore community structure, and Real Graph uses logistic regression trained on interaction data. This reflects the broader evolution of AI-based technologies in social media analytics, where the development of computational intelligence has enabled increasingly sophisticated analysis of platform data \cite{nedjah2022, moreno2016}.
+
+However, the system also contains notable \textbf{symbolic} elements. The heuristic filtering stage applies hard-coded logical rules, for example, ``if user A has blocked user B, never show B's tweets to A''. What is most interesting and the main reason for this report is the codebase contains explicit feature flags such as \texttt{author\_is\_elon}, \texttt{author\_is\_power\_user}, \texttt{author\_is\_democrat}, and \texttt{author\_is\_republican}. While X has stated these are used for internal testing and monitoring, their presence in the ranking feature set raises questions about whether these signals influence content visibility and are ethically questionable.
+
+\subsection{Functional Goals of the System}
+
+The primary functional goals of X's recommendation algorithm are:
+
+\textbf{Maximise user engagement.} The system is explicitly optimised for positive engagement signals, likes, retweets, replies, and time spent on tweets. The neural ranking model is trained to predict these engagement probabilities, and tweets with higher predicted engagement are ranked higher in the feed.
+
+\textbf{Serve personalised, relevant content.} The algorithm tailors the feed to each individual user based on their social graph, past interactions, community memberships (via SimClusters), and real-time behaviour. The goal is to surface content the user is most likely to find interesting.
+
+\textbf{Balance content discovery with familiarity.} With an approximate 50/50 split between in-network and out-of-network content, the system attempts to show users content from people they already follow with introducing them to new accounts and topics.
+
+\textbf{Support platform revenue.} Engagement maximisation is in X's interest as they are an advertising-based business model. Longer session times and more interactions create more opportunities to maximise advertisements.
+
+\textbf{Operate at scale with low latency.} The system must serve personalised feeds to hundreds of millions of users with quick response times, indicating a need for highly optimised infrastructure and efficient candidate retrieval.
+
+
+%%%%%%%%
+\chapter{Stakeholder Identification}
+
+The X (formerly Twitter) recommendation system operates within a vast social ecosystem interlinking mundane information with important information from large figures such as governments, politicians, public and privates services. 
+The algorithm affects users who directly interact with the platform and broader 
+societal structures like media distribution, governmental agencies and political communication. 
+Identifying stakeholders is therefore essential for evaluating the ethical implications of the system.
+
+\section{Primary Stakeholders}
+
+\subsection{Social}
+The most direct stakeholders are the platform users, including individuals who create and consume 
+content. Their experience of the platform is strongly shaped by the recommendation algorithm because 
+it determines which tweets gain visibility and which remain unseen.
+
+Another important social stakeholder group is content creators, such as journalists, influencers, 
+and political commentators, whose reach and influence are directly affected by algorithmic ranking.
+
+\subsection{Technical}
+Technical stakeholders include engineers, data scientists, and machine learning researchers at X 
+who design and maintain the recommendation pipeline. Their decisions regarding model architecture, 
+ranking signals, and filtering heuristics directly determine how content is prioritised and moderated.
+
+\subsection{Economic}
+From an economic perspective, advertisers and the platform itself are key stakeholders. The algorithm 
+aims to maximise engagement and time spent on the platform, which increases the number of advertisements served and therefore revenue generation.
+
+\subsection{Ecological / Environmental}
+Large-scale AI systems require extensive computational infrastructure. Data centres powering social 
+media platforms consume significant amounts of electricity and cooling resources. Therefore cloud 
+infrastructure providers and environmental stakeholders are indirectly affected by the computational 
+demands of large recommendation models.
+
+\subsection{Political}
+Political actors are also significant stakeholders. Political parties, advocacy groups, and government 
+institutions use the platform to communicate with the public. Algorithmic amplification or suppression 
+of content may influence political discourse and democratic processes.
+
+\subsection{Legal}
+Regulatory authorities and legal institutions represent another stakeholder group. Governments and 
+regulatory bodies are increasingly concerned with platform transparency, misinformation, and data 
+protection compliance such as GDPR within the European Union.
+
+\section{Ethical Goals of the System}
+
+Public documentation from X suggests several ethical objectives for the platform. These include 
+providing transparent recommendation mechanisms, ensuring user safety by filtering harmful content, 
+respecting user control through features such as blocking and muting accounts, and preventing 
+platform manipulation such as spam or coordinated disinformation campaigns.
+
+However, many of these ethical goals are only indirectly stated and are often secondary to the 
+platform's primary functional objective of maximising engagement.
+
+\section{Ethical Considerations}
+
+To analyse the ethical implications of the recommendation system, three schools of ethical thought 
+are considered: utilitarianism, deontological ethics, and virtue ethics.
+
+\subsection{Utilitarian Perspective}
+
+Utilitarianism evaluates actions based on their consequences and aims to maximise overall societal 
+benefit. In the context of the recommendation system, the algorithm attempts to maximise engagement 
+by promoting content predicted to generate interactions such as likes, replies, or retweets.
+
+This approach can maximise user engagement and platform activity, but it can lead to the 
+increase of emotionally charged content as this is more likely to increase user engagement. Relevant variables include predicted engagement scores, tweet interaction probabilities, and user similarity clusters.
+
+From a utilitarian perspective, the system should prioritise content that maximises overall user 
+satisfaction and societal benefit rather than simply engagement metrics. One possible design 
+decision is to penalise content associated with misinformation or extreme polarisation even if 
+it produces high engagement.
+
+\subsection{Deontological Perspective}
+
+Deontological ethics focuses on rules and duties rather than outcomes. Under this framework, the 
+system must respect certain rights and obligations regardless of engagement outcomes.
+
+These include respecting user privacy, ensuring fairness in content exposure, and preventing 
+discrimination based on political or demographic attributes.
+
+The presence of features such as \texttt{author\_is\_democrat} or \texttt{author\_is\_republican} 
+raises potential concerns regarding fairness and political neutrality. A deontological approach 
+would require strict safeguards ensuring that such attributes are not used to unfairly prioritise 
+or suppress political viewpoints.
+
+\subsection{Virtue Ethics Perspective}
+
+Virtue ethics evaluates whether a system promotes good moral character and responsible behaviour 
+within a community.
+
+For a social media platform this means encouraging constructive discourse instead of hostility or 
+misinformation. Relevant system behaviours include reducing visibility of abusive content, 
+promoting credible information sources, and discouraging engagement with misleading information.
+
+Under this framework the recommendation system should prioritise tweets that contribute positively 
+to public discourse and discourage those that undermine trust in information systems.
+
+\section{Values}
+
+Different stakeholders hold distinct values that may conflict with one another.
+
+Users generally value personalised content, freedom of expression, and engaging discussions. 
+However they may also desire protection from harassment and misinformation.
+
+Content creators value visibility and fair exposure within the platform's ranking system. If 
+algorithmic signals disproportionately favour certain types of content, creators may adapt their 
+behaviour to optimise for engagement rather than quality.
+
+Platform operators value user engagement, platform growth, and financial sustainability. These 
+goals may conflict with ethical considerations such as reducing the spread of polarising content.
+
+Regulators and policymakers value transparency, fairness, and the protection of democratic 
+processes. They may require platforms to implement safeguards against manipulation or 
+misinformation.
+
+Negotiation between these values is necessary. For example, reducing the visibility of misleading 
+content may decrease engagement but improve societal welfare. In such cases prioritising societal 
+stability and democratic integrity over short term engagement metrics may be ethically justified.
+
+
+\chapter{Implementation}
+
+\section{Link to Repository}
+
+The implementation for this project is based on the following repository:
+
+\url{https://github.com/twitter/the-algorithm}
+
+This repository was used as a reference architecture for a simplified simulation of the X recommendation pipeline. The local implementation does not attempt to reproduce the full production system. Instead, it models a small recommendation workflow with candidate generation, engagement-based ranking, safety filtering, diversity constraints, and fairness reporting.
+
+\section{Description of Approach}
+
+The implementation models a simplified recommendation pipeline with explicit checks for both functional and ethical goals.
+
+\subsection{Functional Goal Validation}
+
+The system simulates three core stages of the recommendation process.
+
+\begin{itemize}
+\item Candidate generation: a pool of tweets is generated from both in-network and out-of-network sources.
+\item Ranking model: each tweet receives a score based primarily on engagement probability, with a small in-network bonus.
+\item Feed construction: tweets are sorted according to the ranking score and then passed through post-ranking ethical checks.
+\end{itemize}
+
+Functional validation is performed by confirming that the system successfully ranks tweets according to predicted engagement, preserves a mix of in-network and out-of-network content, and produces a final feed after post-processing.
+
+\subsection{Ethical Goal Validation}
+
+In addition to functional ranking, the system includes explicit checks for ethical concerns. These checks simulate rule-based safeguards applied after ranking.
+
+Examples include safety validation to remove harmful or misinformation-labelled tweets, fairness reporting to expose the political-label distribution of the feed, and diversity constraints that prevent the final feed from being dominated by a single topic.
+
+These validations help identify cases where engagement-driven ranking may conflict with ethical goals.
+
+\section{Points of Conflict}
+
+Several conflicts emerge when attempting to balance functional and ethical objectives.
+
+\subsection{Engagement vs Information Quality}
+
+The ranking model prioritises tweets predicted to generate engagement. However, highly engaging content may include misinformation or inflammatory material.
+
+The initial ranking stage orders tweets by score alone. The ethical layer then removes tweets identified as harmful or misinformation. This change benefits users and regulators who value a healthier information ecosystem.
+
+\subsection{Personalisation vs Echo Chambers}
+
+Personalised recommendations increase relevance but may also reinforce ideological bubbles.
+
+The initial ranking stage does not constrain topic dominance. The revised design introduces diversity constraints to ensure exposure to a wider range of topics and reduce the risk of echo chambers.
+
+\subsection{Transparency vs Proprietary Algorithms}
+
+Platforms may wish to protect intellectual property while regulators demand transparency.
+
+The implementation addresses this conflict in a limited but practical way by making the simplified pipeline auditable. The console outputs expose ranking summaries, fairness counts, and the effect of each post-processing step, while not claiming to reveal the full proprietary logic of X's real production system.
+
+\section{Evidence}
+
+This section presents empirical evidence demonstrating both functional correctness and ethical validation of the implemented recommendation pipeline. The outputs shown are generated directly from the simulation scripts and align with the results in the output log.
+
+\subsection{Functional Validation}
+
+The system successfully produces a ranked feed based on predicted engagement scores.
+
+\begin{verbatim}
+--- RANKED FEED SUMMARY ---
+Total tweets: 20
+In-network: 12
+Out-of-network: 8
+Topic distribution: {'politics': 7, 'news': 5, 'finance': 3, 'sports': 2, 'tech': 3}
+\end{verbatim}
+
+This confirms that:
+\begin{itemize}
+    \item tweets are ranked according to score before ethical intervention,
+    \item both in-network and out-of-network tweets are present in the candidate pool, and
+    \item the initial ranked feed contains a broad spread of topics, although politics is dominant.
+\end{itemize}
+
+The detailed ranked output also shows that high-scoring harmful or misinformation-labelled tweets appear near the top of the feed before ethical filtering, which is exactly the intended conflict case for this implementation.\
+
+\subsection{Ethical Validation: Safety Filtering}
+
+The safety filter removes tweets marked as harmful or misinformation.
+
+\begin{verbatim}
+--- POST-SAFETY FEED SUMMARY ---
+Total tweets: 12
+In-network: 6
+Out-of-network: 6
+Topic distribution: {'politics': 4, 'finance': 2, 'news': 2, 'sports': 2, 'tech': 2}
+\end{verbatim}
+
+This demonstrates that:
+\begin{itemize}
+    \item high-engagement harmful and misleading content is removed,
+    \item the system reduces the candidate set from 20 tweets to 12 tweets, and
+    \item post-ranking ethical checks materially change the composition of the feed.
+\end{itemize}
+
+This is consistent with the detailed output, where harmful or misinformation-labelled tweets such as IDs 1, 2, 6, 7, 11, 12, 19, and 20 are present before filtering and absent afterwards.
+
+\subsection{Ethical Validation: Diversity Constraint}
+
+The diversity constraint limits the dominance of any single topic.
+
+\begin{verbatim}
+--- FINAL FEED SUMMARY ---
+Total tweets: 11
+In-network: 6
+Out-of-network: 5
+Topic distribution: {'politics': 3, 'finance': 2, 'news': 2, 'sports': 2, 'tech': 2}
+\end{verbatim}
+
+This shows that:
+\begin{itemize}
+    \item the number of political tweets is reduced from 4 to 3,
+    \item topic distribution becomes more balanced, and
+    \item the final feed avoids over-representation of a single topic.
+\end{itemize}
+
+The detailed output shows that one lower-ranked politics tweet is removed by the diversity rule, while the remaining topics stay balanced at two items each except politics, which is capped at three.
+
+\subsection{Fairness Audit}
+
+Political label distributions are reported before and after ethical processing.
+
+\begin{verbatim}
+--- FAIRNESS BEFORE ---
+{'left': 4, 'right': 9, 'neutral': 7}
+
+--- FAIRNESS AFTER SAFETY ---
+{'left': 2, 'right': 6, 'neutral': 4}
+
+--- FAIRNESS AFTER DIVERSITY ---
+{'left': 2, 'right': 5, 'neutral': 4}
+\end{verbatim}
+
+This demonstrates that:
+\begin{itemize}
+    \item political representation is uneven prior to ethical filtering,
+    \item safety filtering and diversity constraints alter this distribution, and
+    \item political attributes are monitored as an audit measure rather than directly optimised in ranking.
+\end{itemize}
+
+\subsection{Summary}
+
+The implementation is consistent with the output log and demonstrates that:
+\begin{itemize}
+    \item engagement-based ranking can prioritise harmful or misleading content,
+    \item safety filtering removes such content effectively,
+    \item diversity constraints reduce topic dominance and echo chamber risk, and
+    \item fairness metrics provide an auditable summary of political-label distribution.
+\end{itemize}
+
+
+\chapter{ChatGPT Says...}
+In this chapter, you will choose a commonly used LLM (e.g., chatGPT / claude / perplexity / gemini etc. - identify which model and version (\textbf{N.B}: Only the free version can be used)). 
+
+Present a debate with the LLM about the points of conflict you identified in the previous chapter. \textit{At least four} arguments must be debated. You must ask the LLM to present multiple (at least two) actions (or non-actions) for each of the argument, and the reasoning behind why it recommends the option that it does. Do NOT try to show the LLM as being better than it is. If it makes logical errors or exhibits some fallacies in its reasoning, show them.
+
+In this section, we use ChatGPT powered by GPT 5.1 to present the 4 points of conflict: Engagement vs Wellbeing with Utilitarianism, Political Labelling with Deontological Ethics, Out-of-Network Amplification with Prioritarianism, and Algorithmic Transparency vs Competitive Advantage.
+
+\section{Engagement vs Wellbeing}
+
+For this point of conflict, we give the following prompt to the model. 
+
+"X/Twitter's "For You" algorithmic recommendation system is designed to maximize user engagement. Evidence from the open-source code shows that metrics like "liked by followed" and "retweet" are heavily weighted in ranking content. However, research shows that engagement-maximizing content often correlates with outrage, and misinformation, which can harm user wellbeing. From a utilitarian perspective, should X's algorithm deprioritize engagement-maximizing content when it risks harming user mental health? Present at least two possible actions X could take, and explain which you would recommend and why. Answer in three paragraphs with 500 words or less"
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{EngvsWell.png}
+    \caption{Engagement vs Wellbeing Reponse}
+    \label{fig:placeholder}
+\end{figure}
+
+\section{Political Labelling}
+
+For this point of conflict, we give the following prompt to the model.
+
+"X/Twitter's recommendation algorithm applies labels such as "state-affiliated media" to certain accounts, which affects how their content is ranked and distributed by the "For You" feed. From a deontological perspective, i.e. we should treat people as ends in themselves and not as means. Is it ethically permissible for X to algorithmically suppress or demote content based on political affiliation labels? Present at least two possible actions X could take, and explain which you would recommend and why. Answer in three paragraphs with 500 words or less"
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{Political labelling.png}
+    \caption{Political Labelling response}
+    \label{fig:placeholder}
+\end{figure}
+
+\section{Out-of-Network Amplification}
+
+For this point of conflict, we give the following prompt to the model.
+
+"X/Twitter's "For You" algorithm amplifies "out-of-network" content, tweets from accounts a user does not follow. The open-source code reveals that out-of-network content is sourced through engagement indicator from a user's social graph. Prioritarianism argues that benefits matter more the worse off someone is. Given that out-of-network amplification disproportionately benefits popular accounts and disadvantages smaller creators, should X redesign this feature to give greater visibility to less visible users? Present at least two possible actions X could take, and explain which you would recommend and why. Answer in three paragraphs with 500 words or less"
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{Out of network.png}
+    \caption{Out-of-network Amplification response}
+    \label{fig:placeholder}
+\end{figure}
+
+\section{Algorithmic Transparency vs Competitive Advantage}
+
+For this point of conflict, we give the following prompt to the model.
+
+"X/Twitter partially open-sourced its recommendation algorithm in 2023, but key ranking weights and real-time tuning parameters remain proprietary. Users have no meaningful way to understand why specific content appears in their "For You" feed. Should X be required to fully disclose how the algorithm ranks and recommends content to users, even if this risks gaming by bad actors or loss of competitive advantage? Present at least two possible actions X could take, and explain which you would recommend and why. Answer in three paragraphs with 500 words or less"
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{Algorithmic Transparency.png}
+    \caption{Algorithmic Transparency response}
+    \label{fig:placeholder}
+\end{figure}
+
+\chapter{Teammate #1 Says...}
+This chapter is to be written solely by team member #1\\
+
+Pick \textbf{one} of the cases identified in the previous chapter and argue why the LLM is incorrect. Show a code fragment from your repository to provide evidence for your view.
+
+\textbf{Note:} It is tempting to conclude that the LLM is correct in every case. This usually means that you haven't examined the issue from multiple different perspectives/schools of thought.
+
+\chapter{Teammate #2 Says...}
+This chapter is to be written solely by team member #2\\
+
+Pick a \textbf{different} case, and argue why the LLM is incorrect. Show a code fragment from your repository,  to provide evidence for your view.
+
+
+\chapter{Conclusions}
+Summarize your thought process about how to approach the ethical cases identified in the second chapter. Which school of ethical thought is easiest for you to express the problem, and find the solution?
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%
+%%% Acknowledgements
+\chapter*{Acknowledgements}
+
+%%%% ADD YOUR BIBLIOGRAPHY HERE
+
+
+
+\printbibliography
+
+\end{document}
+%\end{article}
